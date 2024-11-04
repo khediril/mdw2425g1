@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Main2
+{% endblock %}
+
+{% block body %}
+    <h1>Ma page Main2</h1>
+    Nom : {{ nom }}<br>
+    Prenom : {{ prenom }}
+    <h2>Les notes</h2>
+    <ul>
+    {% for note in notes %}
+        <li>{{ note }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %} 

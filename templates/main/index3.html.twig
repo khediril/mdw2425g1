@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Main3
+{% endblock %}
+
+{% block body %}
+    <img src="{{ asset('/images/iset.jpeg')}}">
+    <h1>Ma page 3</h1>
+    
+    <a href="{{path('app_main1')}}">main1</a><br>
+    <a href="{{path('app_main2')}}">main2</a>
+{% endblock %} 
