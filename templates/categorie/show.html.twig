@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie
+{% endblock %}
+
+{% block body %}
+	<h1>Categorie</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ categorie.id }}</td>
+			</tr>
+			<tr>
+				<th>Nom</th>
+				<td>{{ categorie.nom }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<ul>
+		{% for p in categorie.produits %}
+			<li>{{ p.nom }}</li>
+		{% endfor %}
+    </ul>
+		<div class="container">
+
+			<div class="row row-cols-1 row-cols-md-4 g-4">
+				{% for p in categorie.produits %}
+                <div class="col">
+					<div class="card h-100">
+						<img src="{{ asset('images/produit.jpeg')}}" class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">{{p.id}}</h5>
+							<p class="card-text">{{ p.nom }}</p>
+                            <p class="card-text">{{ p.prix }}</p>
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+            </div>
+
+		</div>
+
+
+		
+
+
+		<a href="{{ path('app_categorie_index') }}">back to list</a>
+
+		<a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}">edit</a>
+
+		{{ include('categorie/_delete_form.html.twig') }}
+	{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,21 @@ class Produit
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
+
+    /**
+     * @var Collection<int, Fournisseur>
+     */
+    #[ORM\ManyToMany(targetEntity: Fournisseur::class, inversedBy: 'produits')]
+    private Collection $fournisseurs;
+
+    public function __construct()
+    {
+        $this->fournisseurs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +77,42 @@ class Produit
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Fournisseur>
+     */
+    public function getFournisseurs(): Collection
+    {
+        return $this->fournisseurs;
+    }
+
+    public function addFournisseur(Fournisseur $fournisseur): static
+    {
+        if (!$this->fournisseurs->contains($fournisseur)) {
+            $this->fournisseurs->add($fournisseur);
+        }
+
+        return $this;
+    }
+
+    public function removeFournisseur(Fournisseur $fournisseur): static
+    {
+        $this->fournisseurs->removeElement($fournisseur);
 
         return $this;
     }
